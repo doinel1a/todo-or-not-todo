@@ -101,7 +101,6 @@ module.exports = {
 						loader: css.loader
 					},
 					'css-loader',
-					'sass-loader',
 					'postcss-loader'
 				]
 			},
