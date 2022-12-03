@@ -1,19 +1,9 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-
-import Counter from './components/counter';
-import GithubCorner from './components/github-corner';
 
 export default function App() {
 	return (
-		<BrowserRouter>
-			<main className='h-screen flex flex-col justify-center items-center bg-primary'>
-				<GithubCorner
-					title='View source on GitHub'
-					url='https://github.com/doinel1a/react-ts-starter'
-				/>
-				<Counter />
-			</main>
-		</BrowserRouter>
+		<main className='h-screen flex flex-col justify-center items-center text-color bg-primary'>
+			<h1 className='text-2xl'>todo or !todo</h1>
+		</main>
 	);
 }

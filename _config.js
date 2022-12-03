@@ -12,7 +12,7 @@ module.exports = {
 		email: 'mailto:doinel1atanasiu@gmail.com',
 		url: 'https://business-link.d1a.app'
 	},
-	gSV: '43hCqye5FYTS4SnBMPKNFP-wBhfLHwRBykWJF1WJawo',
+	gSV: '',
 	appUrl: 'https://react-ts-starter.d1a.app',
 	ogImageUrl: 'https://react-ts-starter.d1a.app',
 	ogImageAlt: whiteSpace(
