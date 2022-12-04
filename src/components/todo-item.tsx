@@ -50,7 +50,7 @@ export default function TodoItem({
 
 	return (
 		<li
-			className='flex p-4 border border-tertiary'
+			className='flex p-4 border last:rounded-b-lg border-tertiary'
 			onMouseEnter={() => setIsHovered((previousState) => !previousState)}
 			onMouseLeave={() => setIsHovered((previousState) => !previousState)}
 		>
@@ -77,7 +77,9 @@ export default function TodoItem({
 					/>
 					<p
 						className={`w-full ml-2 ${
-							todo.isDone ? 'line-through' : ''
+							todo.isDone
+								? 'text-color-secondary line-through'
+								: ''
 						}`}
 						onDoubleClick={() => {
 							setIsHovered((previousState) => !previousState);
@@ -89,14 +91,17 @@ export default function TodoItem({
 				</>
 			)}
 
-			{isHovered ? (
+			{isHovered && !isEditMode ? (
 				<button
 					type='button'
 					title='Delete task'
 					className='ml-auto'
 					onClick={() => onDelete(todo.id)}
 				>
-					<FontAwesomeIcon icon={faClose} className='text-red-400' />
+					<FontAwesomeIcon
+						icon={faClose}
+						className='text-red-400 hover:text-red-600 transition-colors'
+					/>
 				</button>
 			) : (
 				<></>
