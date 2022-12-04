@@ -33,7 +33,7 @@ export default function ListFooter({
 		return (
 			<footer className='w-full relative flex justify-between items-center mt-4'>
 				{activeFilter === 'Completed' ? (
-					<span>
+					<span className='text-sm'>
 						{completedTodos}
 						{completedTodos > 1 || completedTodos == 0
 							? ' tasks '
@@ -41,7 +41,7 @@ export default function ListFooter({
 						completed
 					</span>
 				) : (
-					<span>
+					<span className='text-sm'>
 						{activeTodos}
 						{activeTodos > 1 || activeTodos == 0
 							? ' tasks '
@@ -54,7 +54,7 @@ export default function ListFooter({
 						<button
 							key={`${filter}-${index}`}
 							type='button'
-							className={`px-2 py-1 border border-transparent transition-colors ${
+							className={`text-sm px-2 border rounded-lg border-transparent transition-colors ${
 								activeFilter === filter.type
 									? 'border-accent-primary-state'
 									: 'hover:border-accent-primary'
@@ -74,7 +74,7 @@ export default function ListFooter({
 					<button
 						type='button'
 						title='Clear completed tasks'
-						className='z-[1] hover:text-accent-primary transition-colors'
+						className='z-[1] text-sm hover:text-accent-primary transition-colors'
 						onClick={onClearCompleted}
 					>
 						Clear completed

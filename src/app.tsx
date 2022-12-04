@@ -10,7 +10,7 @@ export default function App() {
 	return (
 		<React.StrictMode>
 			<Provider store={store}>
-				<div className='w-screen h-screen absolute flex flex-col items-center text-color bg-primary'>
+				<div className='w-screen h-screen absolute flex flex-col items-center p-4 text-color-primary bg-primary'>
 					<Navbar />
 					<main className='w-full max-w-xl max-h-full relative flex flex-col items-center my-4 p-4 rounded-lg bg-secondary overflow-hidden'>
 						<AddTodo />

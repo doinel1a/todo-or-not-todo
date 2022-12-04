@@ -35,7 +35,10 @@ export default function AddTodo() {
 
 	return (
 		<form
-			className='w-full border border-tertiary'
+			id='add'
+			className={`w-full border border-tertiary ${
+				todos.length > 0 ? ' rounded-t-lg' : 'rounded-lg'
+			}`}
 			onSubmit={(event) => addTodo(event)}
 		>
 			<div className='flex'>
@@ -45,7 +48,7 @@ export default function AddTodo() {
 					placeholder='What needs to be done?'
 					value={task}
 					onChange={(event) => setTask(event.target.value)}
-					className='w-full p-4 bg-transparent focus:border-none focus:outline-none'
+					className='w-full p-4 bg-transparent placeholder-color-secondary focus:border-none focus:outline-none'
 				/>
 				{task.length > 2 ? (
 					<button
@@ -56,7 +59,7 @@ export default function AddTodo() {
 					>
 						<FontAwesomeIcon
 							icon={faClose}
-							className='text-color'
+							className='text-color-primary hover:text-color-secondary transition-colors'
 						/>
 					</button>
 				) : (
