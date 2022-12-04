@@ -27,6 +27,28 @@ export default function TodoList() {
 		setTodos(temporaryTodos);
 	};
 
+	const onDelete = (todoId: string) => {
+		const temporaryTodos = createDeepCopy(todos);
+
+		setTodos(
+			temporaryTodos.filter(
+				(temporaryTodo) => temporaryTodo.id !== todoId
+			)
+		);
+	};
+
+	const onUpdate = (todoId: string, updatedTask: string) => {
+		const temporaryTodos = createDeepCopy(todos);
+
+		temporaryTodos.map((temporaryTodo) => {
+			if (temporaryTodo.id === todoId) {
+				temporaryTodo.task = updatedTask;
+			}
+		});
+
+		setTodos(temporaryTodos);
+	};
+
 	const onFilter = (filter: string) => {
 		switch (filter) {
 			case 'all': {
@@ -47,16 +69,6 @@ export default function TodoList() {
 		}
 	};
 
-	const onDelete = (todoId: string) => {
-		const temporaryTodos = createDeepCopy(todos);
-
-		setTodos(
-			temporaryTodos.filter(
-				(temporaryTodo) => temporaryTodo.id !== todoId
-			)
-		);
-	};
-
 	const onClearCompleted = () => {
 		const temporaryTodos = createDeepCopy(todos);
 
@@ -72,10 +84,10 @@ export default function TodoList() {
 					{filteredTodos.map((todo) => (
 						<TodoItem
 							key={todo.id}
-							task={todo.task}
-							isDone={todo.isDone}
-							onChecked={() => onChecked(todo.id)}
-							onDelete={() => onDelete(todo.id)}
+							todo={todo}
+							onChecked={onChecked}
+							onDelete={onDelete}
+							onUpdate={onUpdate}
 						/>
 					))}
 				</ul>
