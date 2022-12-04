@@ -48,44 +48,46 @@ export default function TodoItem({
 		if (todo.task !== updatedTask) onUpdate(todo.id, updatedTask);
 	};
 
-	if (isEditMode) {
-		return (
-			<form
-				className='flex p-4 border border-tertiary'
-				onSubmit={(event) => updateTask(event)}
-			>
-				<input
-					id='edit'
-					ref={inputReference}
-					type='text'
-					value={updatedTask}
-					className='w-full ml-5 bg-transparent focus:border-none focus:outline-none'
-					onChange={(event) => setUpdatedTask(event.target.value)}
-				/>
-			</form>
-		);
-	}
-
 	return (
 		<li
 			className='flex p-4 border border-tertiary'
 			onMouseEnter={() => setIsHovered((previousState) => !previousState)}
 			onMouseLeave={() => setIsHovered((previousState) => !previousState)}
 		>
-			<input
-				type='checkbox'
-				checked={todo.isDone}
-				onChange={() => onChecked(todo.id)}
-			/>
-			<p
-				className={`w-full ml-2 ${todo.isDone ? 'line-through' : ''}`}
-				onDoubleClick={() => {
-					setIsHovered((previousState) => !previousState);
-					setIsEditing((previousState) => !previousState);
-				}}
-			>
-				{todo.task}
-			</p>
+			{isEditMode ? (
+				<form
+					className='w-full'
+					onSubmit={(event) => updateTask(event)}
+				>
+					<input
+						id='edit'
+						ref={inputReference}
+						type='text'
+						value={updatedTask}
+						className='w-full pl-5 bg-transparent focus:border-none focus:outline-none'
+						onChange={(event) => setUpdatedTask(event.target.value)}
+					/>
+				</form>
+			) : (
+				<>
+					<input
+						type='checkbox'
+						checked={todo.isDone}
+						onChange={() => onChecked(todo.id)}
+					/>
+					<p
+						className={`w-full ml-2 ${
+							todo.isDone ? 'line-through' : ''
+						}`}
+						onDoubleClick={() => {
+							setIsHovered((previousState) => !previousState);
+							setIsEditing((previousState) => !previousState);
+						}}
+					>
+						{todo.task}
+					</p>
+				</>
+			)}
 
 			{isHovered ? (
 				<button

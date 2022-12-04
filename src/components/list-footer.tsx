@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useTodos from '../hooks/use-todos';
+import useTodosCount from '../hooks/use-todos-count';
 
 interface IListFooter {
 	activeFilter: string;
@@ -27,26 +27,23 @@ export default function ListFooter({
 	onFilter,
 	onClearCompleted
 }: IListFooter) {
-	const { todos } = useTodos();
+	const { totalTodos, activeTodos, completedTodos } = useTodosCount();
 
-	const tasksCompleted = todos.filter((todo) => todo.isDone).length;
-	const tasksToComplete = todos.filter((todo) => !todo.isDone).length;
-
-	if (todos.length > 0) {
+	if (totalTodos > 0) {
 		return (
 			<footer className='w-full relative flex justify-between items-center mt-4'>
 				{activeFilter === 'Completed' ? (
 					<span>
-						{tasksCompleted}
-						{tasksCompleted > 1 || tasksCompleted == 0
+						{completedTodos}
+						{completedTodos > 1 || completedTodos == 0
 							? ' tasks '
 							: ' task '}
 						completed
 					</span>
 				) : (
 					<span>
-						{tasksToComplete}
-						{tasksToComplete > 1 || tasksToComplete == 0
+						{activeTodos}
+						{activeTodos > 1 || activeTodos == 0
 							? ' tasks '
 							: ' task '}
 						to complete
@@ -73,7 +70,7 @@ export default function ListFooter({
 						</button>
 					))}
 				</div>
-				{tasksCompleted > 0 ? (
+				{completedTodos > 0 ? (
 					<button
 						type='button'
 						title='Clear completed tasks'
