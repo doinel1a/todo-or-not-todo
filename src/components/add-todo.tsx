@@ -21,12 +21,12 @@ export default function AddTodo() {
 
 		if (task !== '') {
 			setTodos([
-				...todos,
 				{
 					id: uuid(),
 					task: task,
 					isDone: false
-				}
+				},
+				...todos
 			]);
 		}
 
