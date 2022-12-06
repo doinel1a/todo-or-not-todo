@@ -53,6 +53,15 @@ export default function TodoItem({
 			className='flex p-4 border last:rounded-b-lg border-tertiary'
 			onMouseEnter={() => setIsHovered((previousState) => !previousState)}
 			onMouseLeave={() => setIsHovered((previousState) => !previousState)}
+			onDoubleClick={(event) => {
+				if (
+					(event.target as Element).tagName !== 'INPUT' &&
+					(event.target as Element).tagName !== 'BUTTON'
+				) {
+					setIsHovered((previousState) => !previousState);
+					setIsEditing((previousState) => !previousState);
+				}
+			}}
 		>
 			{isEditMode ? (
 				<form
@@ -81,10 +90,6 @@ export default function TodoItem({
 								? 'text-color-secondary line-through'
 								: ''
 						}`}
-						onDoubleClick={() => {
-							setIsHovered((previousState) => !previousState);
-							setIsEditing((previousState) => !previousState);
-						}}
 					>
 						{todo.task}
 					</p>
