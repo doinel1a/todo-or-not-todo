@@ -73,7 +73,7 @@ export default function ListFooter({
 				{completedTodos > 0 ? (
 					<button
 						type='button'
-						title='Clear completed tasks'
+						title='Delete completed tasks'
 						className='z-[1] text-sm hover:text-accent-primary transition-colors'
 						onClick={onClearCompleted}
 					>
