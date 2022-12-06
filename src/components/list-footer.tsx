@@ -11,13 +11,16 @@ interface IListFooter {
 
 const filters = [
 	{
-		type: 'All'
+		type: 'All',
+		title: 'Show all tasks'
 	},
 	{
-		type: 'Active'
+		type: 'Active',
+		title: 'Show active tasks'
 	},
 	{
-		type: 'Completed'
+		type: 'Completed',
+		title: 'Show completed tasks'
 	}
 ];
 
@@ -54,6 +57,7 @@ export default function ListFooter({
 						<button
 							key={`${filter}-${index}`}
 							type='button'
+							title={filter.title}
 							className={`text-sm px-2 border rounded-lg border-transparent transition-colors ${
 								activeFilter === filter.type
 									? 'border-accent-primary-state'
@@ -73,7 +77,7 @@ export default function ListFooter({
 				{completedTodos > 0 ? (
 					<button
 						type='button'
-						title='Clear completed tasks'
+						title='Delete completed tasks'
 						className='z-[1] text-sm hover:text-accent-primary transition-colors'
 						onClick={onClearCompleted}
 					>
