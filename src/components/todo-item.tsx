@@ -85,7 +85,7 @@ export default function TodoItem({
 						onChange={() => onChecked(todo.id)}
 					/>
 					<p
-						className={`w-full ml-2 ${
+						className={`w-full ml-2 transition-colors ${
 							todo.isDone
 								? 'text-color-secondary line-through'
 								: ''
