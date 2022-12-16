@@ -24,6 +24,8 @@ export default function AddTodo() {
 				{
 					id: uuid(),
 					task: task,
+					createdAt: new Date().toLocaleString(),
+					completedAt: '',
 					isDone: false
 				},
 				...todos

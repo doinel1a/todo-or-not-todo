@@ -25,8 +25,12 @@ export default function TodoList() {
 		const temporaryTodos = createDeepCopy(todos);
 
 		temporaryTodos.map((temporaryTodo) => {
-			if (temporaryTodo.id === todoId)
+			if (temporaryTodo.id === todoId) {
 				temporaryTodo.isDone = !temporaryTodo.isDone;
+				temporaryTodo.completedAt = temporaryTodo.isDone
+					? new Date().toLocaleString()
+					: '';
+			}
 		});
 
 		setTodos(temporaryTodos);
@@ -46,9 +50,7 @@ export default function TodoList() {
 		const temporaryTodos = createDeepCopy(todos);
 
 		temporaryTodos.map((temporaryTodo) => {
-			if (temporaryTodo.id === todoId) {
-				temporaryTodo.task = updatedTask;
-			}
+			if (temporaryTodo.id === todoId) temporaryTodo.task = updatedTask;
 		});
 
 		setTodos(temporaryTodos);
@@ -111,7 +113,7 @@ export default function TodoList() {
 	if (totalTodos > 0) {
 		return (
 			<>
-				<ul className='w-full h-full overflow-y-auto'>
+				<ul className='w-full h-full overflow-y-auto overflow-x-hidden'>
 					{filteredTodos.map((todo) => (
 						<TodoItem
 							key={todo.id}

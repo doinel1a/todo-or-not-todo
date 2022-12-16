@@ -50,7 +50,7 @@ export default function TodoItem({
 
 	return (
 		<li
-			className='flex p-4 border last:rounded-b-lg border-tertiary'
+			className='relative flex flex-col justify-center p-4 border last:rounded-b-lg border-tertiary'
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
 			onDoubleClick={(event) => {
@@ -79,20 +79,30 @@ export default function TodoItem({
 				</form>
 			) : (
 				<>
-					<input
-						type='checkbox'
-						checked={todo.isDone}
-						onChange={() => onChecked(todo.id)}
-					/>
-					<p
-						className={`w-full ml-2 transition-colors ${
-							todo.isDone
-								? 'text-color-secondary line-through'
-								: ''
-						}`}
-					>
-						{todo.task}
-					</p>
+					<div className='w-full flex'>
+						<input
+							type='checkbox'
+							checked={todo.isDone}
+							onChange={() => onChecked(todo.id)}
+						/>
+						<p
+							className={`w-full ml-2 transition-colors ${
+								todo.isDone
+									? 'text-color-secondary line-through'
+									: ''
+							}`}
+						>
+							{todo.task}
+						</p>
+					</div>
+					<div className='w-full flex justify-between mt-2 pr-6 text-xs text-color-secondary'>
+						<span>Created: {todo.createdAt}</span>
+						{todo.completedAt !== '' ? (
+							<span>Completed: {todo.completedAt}</span>
+						) : (
+							<></>
+						)}
+					</div>
 				</>
 			)}
 
@@ -100,7 +110,7 @@ export default function TodoItem({
 				<button
 					type='button'
 					title='Delete task'
-					className='ml-auto'
+					className='absolute right-4'
 					onClick={() => onDelete(todo.id)}
 				>
 					<FontAwesomeIcon
