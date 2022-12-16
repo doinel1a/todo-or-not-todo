@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import useTodos from '../hooks/use-todos';
+import useTodosCount from '../hooks/use-todos-count';
 import { createDeepCopy } from '../utils/json';
 import ListFooter from './list-footer';
 import TodoItem from './todo-item';
 
+const roundedLG = 'rounded-lg';
+const roundedTopLG = 'rounded-t-lg';
+
 export default function TodoList() {
 	const { todos, setTodos } = useTodos();
+	const { totalTodos, activeTodos, completedTodos } = useTodosCount();
 
 	const [activeFilter, setActiveFilter] = useState('All');
 	const [filteredTodos, setFilteredTodos] = useState(createDeepCopy(todos));
@@ -20,8 +25,12 @@ export default function TodoList() {
 		const temporaryTodos = createDeepCopy(todos);
 
 		temporaryTodos.map((temporaryTodo) => {
-			if (temporaryTodo.id === todoId)
+			if (temporaryTodo.id === todoId) {
 				temporaryTodo.isDone = !temporaryTodo.isDone;
+				temporaryTodo.completedAt = temporaryTodo.isDone
+					? new Date().toLocaleString()
+					: '';
+			}
 		});
 
 		setTodos(temporaryTodos);
@@ -41,27 +50,51 @@ export default function TodoList() {
 		const temporaryTodos = createDeepCopy(todos);
 
 		temporaryTodos.map((temporaryTodo) => {
-			if (temporaryTodo.id === todoId) {
-				temporaryTodo.task = updatedTask;
-			}
+			if (temporaryTodo.id === todoId) temporaryTodo.task = updatedTask;
 		});
 
 		setTodos(temporaryTodos);
 	};
 
 	const onFilter = (filter: string) => {
+		const addTodoForm = document.querySelector('#add');
+
 		switch (filter) {
 			case 'all': {
+				if (totalTodos > 0) {
+					addTodoForm?.classList.remove(roundedLG);
+					addTodoForm?.classList.add(roundedTopLG);
+				} else {
+					addTodoForm?.classList.remove(roundedTopLG);
+					addTodoForm?.classList.add(roundedLG);
+				}
+
 				setFilteredTodos(todos);
 
 				break;
 			}
 			case 'active': {
+				if (activeTodos === 0) {
+					addTodoForm?.classList.remove(roundedTopLG);
+					addTodoForm?.classList.add(roundedLG);
+				} else {
+					addTodoForm?.classList.remove(roundedLG);
+					addTodoForm?.classList.add(roundedTopLG);
+				}
+
 				setFilteredTodos(todos.filter((todo) => !todo.isDone));
 
 				break;
 			}
 			case 'completed': {
+				if (completedTodos === 0) {
+					addTodoForm?.classList.remove(roundedTopLG);
+					addTodoForm?.classList.add(roundedLG);
+				} else {
+					addTodoForm?.classList.remove(roundedLG);
+					addTodoForm?.classList.add(roundedTopLG);
+				}
+
 				setFilteredTodos(todos.filter((todo) => todo.isDone));
 
 				break;
@@ -77,10 +110,10 @@ export default function TodoList() {
 		);
 	};
 
-	if (todos.length > 0) {
+	if (totalTodos > 0) {
 		return (
 			<>
-				<ul className='w-full h-full overflow-y-auto'>
+				<ul className='w-full h-full overflow-y-auto overflow-x-hidden'>
 					{filteredTodos.map((todo) => (
 						<TodoItem
 							key={todo.id}
