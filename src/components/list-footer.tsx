@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useTodosCount from '../hooks/use-todos-count';
+import Button from './button';
 
 interface IListFooter {
 	activeFilter: string;
@@ -54,11 +55,12 @@ export default function ListFooter({
 				)}
 				<div className='w-full absolute flex justify-center items-center gap-x-2'>
 					{filters.map((filter, index) => (
-						<button
-							key={`${filter}-${index}`}
-							type='button'
+						<Button
+							key={`${index}-${filter}`}
+							type='text'
 							title={filter.title}
-							className={`text-sm px-2 border rounded-lg border-transparent transition-colors ${
+							text={filter.type}
+							buttonCSS={`text-sm px-2 border border-transparent ${
 								activeFilter === filter.type
 									? 'border-accent-primary-state'
 									: 'hover:border-accent-primary'
@@ -69,20 +71,17 @@ export default function ListFooter({
 									onFilter(filter.type.toLowerCase());
 								}
 							}}
-						>
-							{filter.type}
-						</button>
+						/>
 					))}
 				</div>
 				{completedTodos > 0 ? (
-					<button
-						type='button'
+					<Button
+						type='text'
 						title='Delete completed tasks'
-						className='z-[1] text-sm hover:text-accent-primary transition-colors'
+						text='Clear completed'
+						buttonCSS='z-[1] text-sm hover:text-accent-primary transition-colors'
 						onClick={onClearCompleted}
-					>
-						Clear completed
-					</button>
+					/>
 				) : (
 					<></>
 				)}

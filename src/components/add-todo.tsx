@@ -1,9 +1,9 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useTodos from '../hooks/use-todos';
+import Form from './form';
+import Input from './input';
 
 export default function AddTodo() {
 	const { todos, setTodos } = useTodos();
@@ -36,38 +36,21 @@ export default function AddTodo() {
 	};
 
 	return (
-		<form
+		<Form
 			id='add'
-			className={`w-full border border-tertiary ${
+			CSS={`border border-tertiary ${
 				todos.length > 0 ? ' rounded-t-lg' : 'rounded-lg'
 			}`}
 			onSubmit={(event) => addTodo(event)}
 		>
-			<div className='flex'>
-				<input
-					ref={inputReference}
-					type='text'
-					placeholder='What needs to be done?'
-					value={task}
-					onChange={(event) => setTask(event.target.value)}
-					className='w-full p-4 bg-transparent placeholder-color-secondary focus:border-none focus:outline-none'
-				/>
-				{task.length > 2 ? (
-					<button
-						type='button'
-						title='Clear input'
-						className='ml-auto mr-4'
-						onClick={() => setTask('')}
-					>
-						<FontAwesomeIcon
-							icon={faClose}
-							className='text-color-primary hover:text-color-secondary transition-colors'
-						/>
-					</button>
-				) : (
-					<></>
-				)}
-			</div>
-		</form>
+			<Input
+				value={task}
+				placeholder='What needs to be done?'
+				CSS='p-4'
+				shouldClear={true}
+				onChange={(event) => setTask(event.target.value)}
+				onClear={() => setTask('')}
+			/>
+		</Form>
 	);
 }
