@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ITodo } from '../types/todo';
+import Form from './form';
 
 interface ITodoItem {
 	todo: ITodo;
@@ -63,22 +64,21 @@ export default function TodoItem({
 				}
 			}}
 		>
-			{isEditMode ? (
-				<form
-					className='w-full'
-					onSubmit={(event) => updateTask(event)}
-				>
-					<input
-						id='edit'
-						ref={inputReference}
-						type='text'
-						value={updatedTask}
-						className='w-full pl-5 bg-transparent focus:border-none focus:outline-none'
-						onChange={(event) => setUpdatedTask(event.target.value)}
-					/>
-				</form>
-			) : (
-				<>
+			<>
+				{isEditMode ? (
+					<Form onSubmit={(event) => updateTask(event)}>
+						<input
+							id='edit'
+							ref={inputReference}
+							type='text'
+							value={updatedTask}
+							className='w-full pl-5 bg-transparent focus:border-none focus:outline-none'
+							onChange={(event) =>
+								setUpdatedTask(event.target.value)
+							}
+						/>
+					</Form>
+				) : (
 					<div className='w-full flex'>
 						<input
 							type='checkbox'
@@ -95,16 +95,16 @@ export default function TodoItem({
 							{todo.task}
 						</p>
 					</div>
-					<div className='w-full flex justify-between mt-2 pr-6 text-xs text-color-secondary'>
-						<span>Created: {todo.createdAt}</span>
-						{todo.completedAt !== '' ? (
-							<span>Completed: {todo.completedAt}</span>
-						) : (
-							<></>
-						)}
-					</div>
-				</>
-			)}
+				)}
+				<div className='w-full flex justify-between mt-2 pr-6 text-xs text-color-secondary'>
+					<span>Created: {todo.createdAt}</span>
+					{todo.completedAt !== '' ? (
+						<span>Completed: {todo.completedAt}</span>
+					) : (
+						<></>
+					)}
+				</div>
+			</>
 
 			{isHovered && !isEditMode ? (
 				<button

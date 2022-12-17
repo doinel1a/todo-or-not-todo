@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useTodos from '../hooks/use-todos';
+import Form from './form';
 
 export default function AddTodo() {
 	const { todos, setTodos } = useTodos();
@@ -36,9 +37,9 @@ export default function AddTodo() {
 	};
 
 	return (
-		<form
+		<Form
 			id='add'
-			className={`w-full border border-tertiary ${
+			CSS={`border border-tertiary ${
 				todos.length > 0 ? ' rounded-t-lg' : 'rounded-lg'
 			}`}
 			onSubmit={(event) => addTodo(event)}
@@ -68,6 +69,6 @@ export default function AddTodo() {
 					<></>
 				)}
 			</div>
-		</form>
+		</Form>
 	);
 }
