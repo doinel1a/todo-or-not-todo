@@ -1,8 +1,10 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ITodo } from '../types/todo';
+import Button from './button';
+import Form from './form';
+import Input from './input';
 
 interface ITodoItem {
 	todo: ITodo;
@@ -63,22 +65,20 @@ export default function TodoItem({
 				}
 			}}
 		>
-			{isEditMode ? (
-				<form
-					className='w-full'
-					onSubmit={(event) => updateTask(event)}
-				>
-					<input
-						id='edit'
-						ref={inputReference}
-						type='text'
-						value={updatedTask}
-						className='w-full pl-5 bg-transparent focus:border-none focus:outline-none'
-						onChange={(event) => setUpdatedTask(event.target.value)}
-					/>
-				</form>
-			) : (
-				<>
+			<>
+				{isEditMode ? (
+					<Form onSubmit={(event) => updateTask(event)}>
+						<Input
+							id='edit'
+							value={updatedTask}
+							CSS='pl-5'
+							shouldClear={false}
+							onChange={(event) =>
+								setUpdatedTask(event.target.value)
+							}
+						/>
+					</Form>
+				) : (
 					<div className='w-full flex'>
 						<input
 							type='checkbox'
@@ -95,29 +95,26 @@ export default function TodoItem({
 							{todo.task}
 						</p>
 					</div>
-					<div className='w-full flex justify-between mt-2 pr-6 text-xs text-color-secondary'>
-						<span>Created: {todo.createdAt}</span>
-						{todo.completedAt !== '' ? (
-							<span>Completed: {todo.completedAt}</span>
-						) : (
-							<></>
-						)}
-					</div>
-				</>
-			)}
+				)}
+				<div className='w-full flex justify-between mt-2 pr-6 text-xs text-color-secondary'>
+					<span>Created: {todo.createdAt}</span>
+					{todo.completedAt !== '' ? (
+						<span>Completed: {todo.completedAt}</span>
+					) : (
+						<></>
+					)}
+				</div>
+			</>
 
 			{isHovered && !isEditMode ? (
-				<button
-					type='button'
+				<Button
+					type='icon'
 					title='Delete task'
-					className='absolute right-4'
+					icon={faClose}
+					buttonCSS='absolute right-4'
+					iconCSS='text-red-400 hover:text-red-600'
 					onClick={() => onDelete(todo.id)}
-				>
-					<FontAwesomeIcon
-						icon={faClose}
-						className='text-red-400 hover:text-red-600 transition-colors'
-					/>
-				</button>
+				/>
 			) : (
 				<></>
 			)}
