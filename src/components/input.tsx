@@ -1,6 +1,7 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef } from 'react';
+
+import Button from './button';
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
 interface IInputProps {
@@ -43,17 +44,15 @@ export default function Input({
 			/>
 			{shouldClear ? (
 				value.length > 2 ? (
-					<button
-						type='button'
+					<Button
+						type='icon'
 						title='Clear input'
-						className='ml-auto mr-4'
-						onClick={onClear}
-					>
-						<FontAwesomeIcon
-							icon={faClose}
-							className='text-color-primary hover:text-color-secondary transition-colors'
-						/>
-					</button>
+						icon={faClose}
+						buttonCSS='ml-auto mr-4'
+						iconCSS='text-color-primary hover:text-color-secondary'
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						onClick={onClear!}
+					/>
 				) : (
 					<></>
 				)

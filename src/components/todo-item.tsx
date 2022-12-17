@@ -1,8 +1,8 @@
 import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { ITodo } from '../types/todo';
+import Button from './button';
 import Form from './form';
 import Input from './input';
 
@@ -107,17 +107,14 @@ export default function TodoItem({
 			</>
 
 			{isHovered && !isEditMode ? (
-				<button
-					type='button'
+				<Button
+					type='icon'
 					title='Delete task'
-					className='absolute right-4'
+					icon={faClose}
+					buttonCSS='absolute right-4'
+					iconCSS='text-red-400 hover:text-red-600'
 					onClick={() => onDelete(todo.id)}
-				>
-					<FontAwesomeIcon
-						icon={faClose}
-						className='text-red-400 hover:text-red-600 transition-colors'
-					/>
-				</button>
+				/>
 			) : (
 				<></>
 			)}
