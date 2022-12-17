@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { ITodo } from '../types/todo';
 import Form from './form';
+import Input from './input';
 
 interface ITodoItem {
 	todo: ITodo;
@@ -67,12 +68,11 @@ export default function TodoItem({
 			<>
 				{isEditMode ? (
 					<Form onSubmit={(event) => updateTask(event)}>
-						<input
+						<Input
 							id='edit'
-							ref={inputReference}
-							type='text'
 							value={updatedTask}
-							className='w-full pl-5 bg-transparent focus:border-none focus:outline-none'
+							CSS='pl-5'
+							shouldClear={false}
 							onChange={(event) =>
 								setUpdatedTask(event.target.value)
 							}
