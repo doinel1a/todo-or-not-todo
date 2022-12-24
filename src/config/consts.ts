@@ -1,1 +1,1 @@
-export const TODOS_KEY = 'TODO_LIST';
+export const LISTS_KEY = 'TODO_LISTS';
