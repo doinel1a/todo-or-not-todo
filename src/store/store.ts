@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { todosSlice } from '../slices/todos-slice';
+import { listsSlice } from '../slices/lists-slice';
 
 const store = configureStore({
 	reducer: {
-		todos: todosSlice.reducer
+		lists: listsSlice.reducer
 	}
 });
 
