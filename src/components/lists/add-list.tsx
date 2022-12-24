@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useLists from '../../hooks/use-lists';
+import useUserAgent from '../../hooks/use-user-agent';
 import Form from '../form';
 import Input from '../input';
 
 export default function AddList() {
+	const { isMobile } = useUserAgent();
 	const { lists, setLists } = useLists();
 	const [listName, setListName] = useState('');
 
@@ -39,6 +41,7 @@ export default function AddList() {
 				value={listName}
 				placeholder='What needs to be handled?'
 				CSS='p-3 md:p-4'
+				shouldAutofocus={isMobile ? false : true}
 				shouldClear={true}
 				onChange={(event) => setListName(event.target.value)}
 				onClear={() => setListName('')}

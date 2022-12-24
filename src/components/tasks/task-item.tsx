@@ -69,6 +69,7 @@ export default function TaskItem({
 						<Input
 							id='edit'
 							value={updatedTask}
+							shouldAutofocus={true}
 							shouldClear={false}
 							onChange={(event) =>
 								setUpdatedTask(event.target.value)

@@ -66,6 +66,7 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 						<Input
 							id='edit'
 							value={updatedName}
+							shouldAutofocus={true}
 							shouldClear={false}
 							onChange={(event) =>
 								setUpdatedName(event.target.value)
