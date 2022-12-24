@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { faClose, faSquarePen } from '@fortawesome/free-solid-svg-icons';
@@ -5,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import useUserAgent from '../../hooks/use-user-agent';
 import { IList } from '../../types/list';
 import Button from '../button';
 import Form from '../form';
@@ -18,6 +20,7 @@ interface IListItemProps {
 }
 
 export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
+	const { isMobile } = useUserAgent();
 	const [isHovered, setIsHovered] = useState(false);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [updatedName, setUpdatedName] = useState(list.name);
@@ -48,10 +51,10 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 		<li
 			className='w-full p-2 md:p-4 text-lg border-b last:border-b-0 border-tertiary'
 			onMouseEnter={() => {
-				if (!isEditMode) setIsHovered(true);
+				if (!isMobile && !isEditMode) setIsHovered(true);
 			}}
 			onMouseLeave={() => {
-				if (!isEditMode) setIsHovered(false);
+				if (!isMobile && !isEditMode) setIsHovered(false);
 			}}
 		>
 			{isEditMode ? (
@@ -109,7 +112,21 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 							<></>
 						)}
 					</div>
-					{isHovered ? (
+					{isMobile ? (
+						<Button
+							type='icon'
+							title='Delete list'
+							icon={faClose}
+							buttonCSS='absolute right-2'
+							iconCSS='text-red-400 hover:text-red-600'
+							onClick={(event) => {
+								event.preventDefault();
+								event.stopPropagation();
+
+								onDelete(list.id);
+							}}
+						/>
+					) : isHovered ? (
 						<Button
 							type='icon'
 							title='Delete list'

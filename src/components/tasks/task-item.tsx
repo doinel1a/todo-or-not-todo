@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,6 +6,7 @@ import { faClose, faSquarePen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 
+import useUserAgent from '../../hooks/use-user-agent';
 import { ITask } from '../../types/task';
 import Button from '../button';
 import Form from '../form';
@@ -23,6 +25,7 @@ export default function TaskItem({
 	onDelete,
 	onUpdate
 }: ITaskItem) {
+	const { isMobile } = useUserAgent();
 	const [isHovered, setIsHovered] = useState(false);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [updatedTask, setUpdatedTask] = useState(task.task);
@@ -121,7 +124,21 @@ export default function TaskItem({
 							<></>
 						)}
 					</div>
-					{isHovered ? (
+					{isMobile ? (
+						<Button
+							type='icon'
+							title='Delete task'
+							icon={faClose}
+							buttonCSS='absolute right-2'
+							iconCSS='text-red-400 hover:text-red-600'
+							onClick={(event) => {
+								event.preventDefault();
+								event.stopPropagation();
+
+								onDelete(task.id);
+							}}
+						/>
+					) : isHovered ? (
 						<Button
 							type='icon'
 							title='Delete task'
