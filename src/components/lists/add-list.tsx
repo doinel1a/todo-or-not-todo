@@ -38,7 +38,7 @@ export default function AddList() {
 			<Input
 				value={listName}
 				placeholder='What needs to be handled?'
-				CSS='p-4'
+				CSS='p-3 md:p-4'
 				shouldClear={true}
 				onChange={(event) => setListName(event.target.value)}
 				onClear={() => setListName('')}

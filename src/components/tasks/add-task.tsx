@@ -49,7 +49,7 @@ export default function AddTask({ list }: IAddTaskProps) {
 			<Input
 				value={task}
 				placeholder='What needs to be done?'
-				CSS='p-4'
+				CSS='p-3 md:p-4'
 				shouldClear={true}
 				onChange={(event) => setTask(event.target.value)}
 				onClear={() => setTask('')}

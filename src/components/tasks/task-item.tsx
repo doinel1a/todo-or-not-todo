@@ -49,7 +49,7 @@ export default function TaskItem({
 
 	return (
 		<li
-			className='w-full p-4 text-lg border-b last:border-b-0 border-tertiary'
+			className='w-full p-2 md:p-4 text-lg border-b last:border-b-0 border-tertiary'
 			onMouseEnter={() => {
 				if (!isEditMode) setIsHovered(true);
 			}}
@@ -76,7 +76,7 @@ export default function TaskItem({
 						icon={faSquarePen}
 						className='absolute right-2 text-color-secondary'
 					/>
-					<div className='w-full flex justify-between mt-2 text-xs text-color-secondary cursor-default'>
+					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary cursor-default'>
 						<span>Created: {task.createdAt}</span>
 						{task.completedAt !== '' ? (
 							<span>Completed: {task.completedAt}</span>
@@ -113,7 +113,7 @@ export default function TaskItem({
 							{task.task}
 						</p>
 					</div>
-					<div className='w-full flex justify-between mt-2 text-xs text-color-secondary cursor-default'>
+					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary cursor-default'>
 						<span>Created: {task.createdAt}</span>
 						{task.completedAt !== '' ? (
 							<span>Completed: {task.completedAt}</span>
