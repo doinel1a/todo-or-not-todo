@@ -16,14 +16,14 @@ export default function TasksList({ list }: ITodosProps) {
 	console.log(list);
 	return (
 		<>
-			<nav className='w-full flex justify-start items-center mb-4 '>
-				<Link to='/' title='Back' className=''>
+			<nav className='w-full relative flex justify-start items-center mb-4 '>
+				<Link to='/' title='Back' className='absolute'>
 					<FontAwesomeIcon
 						icon={faChevronLeft}
 						className='text-lg text-color-primary transition-colors hover:text-color-secondary'
 					/>
 				</Link>
-				<h2 className='w-full mx-2 text-2xl font-bold text-center'>
+				<h2 className='w-full text-2xl font-bold text-center'>
 					{list.name}
 				</h2>
 			</nav>
