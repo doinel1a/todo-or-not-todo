@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { faClose, faSquarePen } from '@fortawesome/free-solid-svg-icons';
@@ -5,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import useUserAgent from '../../hooks/use-user-agent';
 import { IList } from '../../types/list';
 import Button from '../button';
 import Form from '../form';
@@ -18,6 +20,7 @@ interface IListItemProps {
 }
 
 export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
+	const { isMobile } = useUserAgent();
 	const [isHovered, setIsHovered] = useState(false);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [updatedName, setUpdatedName] = useState(list.name);
@@ -46,12 +49,12 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 
 	return (
 		<li
-			className='w-full p-4 text-lg border-b last:border-b-0 border-tertiary'
+			className='w-full p-2 md:p-4 text-lg border-b last:border-b-0 border-tertiary'
 			onMouseEnter={() => {
-				if (!isEditMode) setIsHovered(true);
+				if (!isMobile && !isEditMode) setIsHovered(true);
 			}}
 			onMouseLeave={() => {
-				if (!isEditMode) setIsHovered(false);
+				if (!isMobile && !isEditMode) setIsHovered(false);
 			}}
 		>
 			{isEditMode ? (
@@ -63,6 +66,7 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 						<Input
 							id='edit'
 							value={updatedName}
+							shouldAutofocus={true}
 							shouldClear={false}
 							onChange={(event) =>
 								setUpdatedName(event.target.value)
@@ -73,7 +77,7 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 						icon={faSquarePen}
 						className='absolute right-2 text-color-secondary'
 					/>
-					<div className='w-full flex justify-between mt-2 text-xs text-color-secondary'>
+					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary'>
 						<span>Created: {list.createdAt}</span>
 						{list.updatedAt !== '' ? (
 							<span>Updated: {list.updatedAt}</span>
@@ -101,7 +105,7 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 					>
 						{list.name}
 					</p>
-					<div className='w-full flex justify-between mt-2 px-2 text-xs text-color-secondary'>
+					<div className='w-full flex flex-col md:flex-row justify-between mt-2 px-2 text-xs text-color-secondary'>
 						<span>Created: {list.createdAt}</span>
 						{list.updatedAt !== '' ? (
 							<span>Updated: {list.updatedAt}</span>
@@ -109,7 +113,21 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 							<></>
 						)}
 					</div>
-					{isHovered ? (
+					{isMobile ? (
+						<Button
+							type='icon'
+							title='Delete list'
+							icon={faClose}
+							buttonCSS='absolute right-2'
+							iconCSS='text-red-400 hover:text-red-600'
+							onClick={(event) => {
+								event.preventDefault();
+								event.stopPropagation();
+
+								onDelete(list.id);
+							}}
+						/>
+					) : isHovered ? (
 						<Button
 							type='icon'
 							title='Delete list'

@@ -34,6 +34,7 @@
 		"react-hook-form": "^7.40.0",
 		"react-redux": "^8.0.5",
 		"react-router-dom": "^6.4.3",
+		"ua-parser-js": "^1.0.32",
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
@@ -47,6 +48,7 @@
 		"@types/react": "^18.0.25",
 		"@types/react-dom": "^18.0.9",
 		"@types/react-router-dom": "^5.3.3",
+		"@types/ua-parser-js": "^0.7.36",
 		"@types/uuid": "^9.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.42.1",
 		"@typescript-eslint/parser": "^5.43.0",
