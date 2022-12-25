@@ -61,7 +61,7 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 				<div className='relative flex flex-col px-2'>
 					<Form
 						onSubmit={(event) => updateListName(event)}
-						CSS='border border-transparent'
+						CSS='flex items-center border border-transparent'
 					>
 						<Input
 							id='edit'
@@ -72,12 +72,12 @@ export default function ListItem({ list, onUpdate, onDelete }: IListItemProps) {
 								setUpdatedName(event.target.value)
 							}
 						/>
+						<FontAwesomeIcon
+							icon={faSquarePen}
+							className='absolute right-2 text-color-secondary'
+						/>
 					</Form>
-					<FontAwesomeIcon
-						icon={faSquarePen}
-						className='absolute right-2 text-color-secondary'
-					/>
-					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary'>
+					<div className='w-full flex flex-col md:flex-row justify-between mt-2 text-xs text-color-secondary'>
 						<span>Created: {list.createdAt}</span>
 						{list.updatedAt !== '' ? (
 							<span>Updated: {list.updatedAt}</span>

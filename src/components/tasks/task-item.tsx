@@ -64,7 +64,7 @@ export default function TaskItem({
 				<div className='relative flex flex-col px-2'>
 					<Form
 						onSubmit={(event) => updateTask(event)}
-						CSS='border border-transparent'
+						CSS='flex items-center border border-transparent'
 					>
 						<Input
 							id='edit'
@@ -75,11 +75,11 @@ export default function TaskItem({
 								setUpdatedTask(event.target.value)
 							}
 						/>
+						<FontAwesomeIcon
+							icon={faSquarePen}
+							className='absolute right-2 text-color-secondary'
+						/>
 					</Form>
-					<FontAwesomeIcon
-						icon={faSquarePen}
-						className='absolute right-2 text-color-secondary'
-					/>
 					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary cursor-default'>
 						<span>Created: {task.createdAt}</span>
 						{task.completedAt !== '' ? (
