@@ -13,7 +13,7 @@ export default function App() {
 		<Router>
 			<div className='w-screen h-screen absolute flex flex-col items-center p-4 text-color-primary bg-primary'>
 				<Navbar />
-				<main className='w-full max-w-xl max-h-full relative flex flex-col items-center my-4 p-4 rounded-lg bg-secondary overflow-hidden'>
+				<main className='w-full max-w-xl max-h-full relative flex flex-col items-center my-4 p-2 md:p-4 rounded-lg bg-secondary overflow-hidden'>
 					<Routes>
 						<Route path='/' element={<Dashboard />} />
 						{lists.map((list) => (

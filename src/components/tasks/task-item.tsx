@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-nested-ternary */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -5,6 +6,7 @@ import { faClose, faSquarePen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 
+import useUserAgent from '../../hooks/use-user-agent';
 import { ITask } from '../../types/task';
 import Button from '../button';
 import Form from '../form';
@@ -23,6 +25,7 @@ export default function TaskItem({
 	onDelete,
 	onUpdate
 }: ITaskItem) {
+	const { isMobile } = useUserAgent();
 	const [isHovered, setIsHovered] = useState(false);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [updatedTask, setUpdatedTask] = useState(task.task);
@@ -49,7 +52,7 @@ export default function TaskItem({
 
 	return (
 		<li
-			className='w-full p-4 text-lg border-b last:border-b-0 border-tertiary'
+			className='w-full p-2 md:p-4 text-lg border-b last:border-b-0 border-tertiary'
 			onMouseEnter={() => {
 				if (!isEditMode) setIsHovered(true);
 			}}
@@ -66,6 +69,7 @@ export default function TaskItem({
 						<Input
 							id='edit'
 							value={updatedTask}
+							shouldAutofocus={true}
 							shouldClear={false}
 							onChange={(event) =>
 								setUpdatedTask(event.target.value)
@@ -76,7 +80,7 @@ export default function TaskItem({
 						icon={faSquarePen}
 						className='absolute right-2 text-color-secondary'
 					/>
-					<div className='w-full flex justify-between mt-2 text-xs text-color-secondary cursor-default'>
+					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary cursor-default'>
 						<span>Created: {task.createdAt}</span>
 						{task.completedAt !== '' ? (
 							<span>Completed: {task.completedAt}</span>
@@ -113,7 +117,7 @@ export default function TaskItem({
 							{task.task}
 						</p>
 					</div>
-					<div className='w-full flex justify-between mt-2 text-xs text-color-secondary cursor-default'>
+					<div className='w-full flex flex-col md:flex-row  justify-between mt-2 text-xs text-color-secondary cursor-default'>
 						<span>Created: {task.createdAt}</span>
 						{task.completedAt !== '' ? (
 							<span>Completed: {task.completedAt}</span>
@@ -121,7 +125,21 @@ export default function TaskItem({
 							<></>
 						)}
 					</div>
-					{isHovered ? (
+					{isMobile ? (
+						<Button
+							type='icon'
+							title='Delete task'
+							icon={faClose}
+							buttonCSS='absolute right-2'
+							iconCSS='text-red-400 hover:text-red-600'
+							onClick={(event) => {
+								event.preventDefault();
+								event.stopPropagation();
+
+								onDelete(task.id);
+							}}
+						/>
+					) : isHovered ? (
 						<Button
 							type='icon'
 							title='Delete task'

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useLists from '../../hooks/use-lists';
+import useUserAgent from '../../hooks/use-user-agent';
 import { IList } from '../../types/list';
 import { createDeepCopy } from '../../utils/json';
 import Form from '../form';
@@ -13,6 +14,7 @@ interface IAddTaskProps {
 }
 
 export default function AddTask({ list }: IAddTaskProps) {
+	const { isMobile } = useUserAgent();
 	const { lists, setLists } = useLists();
 	const [task, setTask] = useState('');
 
@@ -49,7 +51,8 @@ export default function AddTask({ list }: IAddTaskProps) {
 			<Input
 				value={task}
 				placeholder='What needs to be done?'
-				CSS='p-4'
+				CSS='p-3 md:p-4'
+				shouldAutofocus={isMobile ? false : true}
 				shouldClear={true}
 				onChange={(event) => setTask(event.target.value)}
 				onClear={() => setTask('')}
