@@ -1,9 +1,11 @@
 import React from 'react';
+import { ITask } from 'types/task';
 
-import useTodosCount from '../hooks/use-todos-count';
-import Button from './button';
+import useTasksCount from '../../hooks/use-tasks-count';
+import Button from '../button';
 
 interface IListFooter {
+	tasks: ITask[];
 	activeFilter: string;
 	setActiveFilter: React.Dispatch<React.SetStateAction<string>>;
 	onFilter: (filter: string) => void;
@@ -26,28 +28,29 @@ const filters = [
 ];
 
 export default function ListFooter({
+	tasks,
 	activeFilter,
 	setActiveFilter,
 	onFilter,
 	onClearCompleted
 }: IListFooter) {
-	const { totalTodos, activeTodos, completedTodos } = useTodosCount();
+	const { totalTasks, activeTasks, completedTasks } = useTasksCount(tasks);
 
-	if (totalTodos > 0) {
+	if (totalTasks > 0) {
 		return (
 			<footer className='w-full relative flex justify-between items-center mt-4'>
 				{activeFilter === 'Completed' ? (
 					<span className='text-sm'>
-						{completedTodos}
-						{completedTodos > 1 || completedTodos == 0
+						{completedTasks}
+						{completedTasks > 1 || completedTasks == 0
 							? ' tasks '
 							: ' task '}
 						completed
 					</span>
 				) : (
 					<span className='text-sm'>
-						{activeTodos}
-						{activeTodos > 1 || activeTodos == 0
+						{activeTasks}
+						{activeTasks > 1 || activeTasks == 0
 							? ' tasks '
 							: ' task '}
 						to complete
@@ -74,7 +77,7 @@ export default function ListFooter({
 						/>
 					))}
 				</div>
-				{completedTodos > 0 ? (
+				{completedTasks > 0 && activeFilter !== 'Active' ? (
 					<Button
 						type='text'
 						title='Delete completed tasks'

@@ -9,6 +9,7 @@ interface IInputProps {
 	value: string;
 	placeholder?: string;
 	CSS?: string;
+	shouldAutofocus: boolean;
 	shouldClear: boolean;
 	onChange: React.ChangeEventHandler<HTMLInputElement>;
 	onClear?: React.MouseEventHandler<HTMLButtonElement>;
@@ -19,6 +20,7 @@ export default function Input({
 	value,
 	placeholder,
 	CSS,
+	shouldAutofocus,
 	shouldClear,
 	onChange,
 	onClear
@@ -27,7 +29,7 @@ export default function Input({
 
 	useEffect(
 		() => {
-			inputReference.current?.focus();
+			if (shouldAutofocus) inputReference.current?.focus();
 		} /*, [] */
 	);
 
