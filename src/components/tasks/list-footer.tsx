@@ -38,25 +38,38 @@ export default function ListFooter({
 
 	if (totalTasks > 0) {
 		return (
-			<footer className='w-full relative flex justify-between items-center mt-4'>
-				{activeFilter === 'Completed' ? (
-					<span className='text-sm'>
-						{completedTasks}
-						{completedTasks > 1 || completedTasks == 0
-							? ' tasks '
-							: ' task '}
-						completed
-					</span>
-				) : (
-					<span className='text-sm'>
-						{activeTasks}
-						{activeTasks > 1 || activeTasks == 0
-							? ' tasks '
-							: ' task '}
-						to complete
-					</span>
-				)}
-				<div className='w-full absolute flex justify-center items-center gap-x-2'>
+			<footer className='w-full relative flex flex-col md:flex-row  items-center gap-y-2 mt-4'>
+				<div className='w-full flex  justify-between items-center gap-x-2'>
+					{activeFilter === 'Completed' ? (
+						<span className='text-sm'>
+							{completedTasks}
+							{completedTasks > 1 || completedTasks == 0
+								? ' tasks '
+								: ' task '}
+							completed
+						</span>
+					) : (
+						<span className='text-sm'>
+							{activeTasks}
+							{activeTasks > 1 || activeTasks == 0
+								? ' tasks '
+								: ' task '}
+							to complete
+						</span>
+					)}
+					{completedTasks > 0 && activeFilter !== 'Active' ? (
+						<Button
+							type='text'
+							title='Delete completed tasks'
+							text='Clear completed'
+							buttonCSS='z-[1] text-sm hover:text-accent-primary transition-colors'
+							onClick={onClearCompleted}
+						/>
+					) : (
+						<></>
+					)}
+				</div>
+				<div className='w-full flex static md:absolute justify-center gap-x-2'>
 					{filters.map((filter, index) => (
 						<Button
 							key={`${index}-${filter}`}
@@ -77,17 +90,6 @@ export default function ListFooter({
 						/>
 					))}
 				</div>
-				{completedTasks > 0 && activeFilter !== 'Active' ? (
-					<Button
-						type='text'
-						title='Delete completed tasks'
-						text='Clear completed'
-						buttonCSS='z-[1] text-sm hover:text-accent-primary transition-colors'
-						onClick={onClearCompleted}
-					/>
-				) : (
-					<></>
-				)}
 			</footer>
 		);
 	}
