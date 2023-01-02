@@ -32,7 +32,7 @@ export default function TasksList({ list }: ITaskListProps) {
 	}, [list.tasks]);
 
 	const onChecked = (taskId: string) => {
-		const now = new Date().toLocaleDateString();
+		const now = new Date().toLocaleString();
 		const temporaryLists = createDeepCopy(lists);
 
 		for (const temporaryList of temporaryLists) {
@@ -54,7 +54,7 @@ export default function TasksList({ list }: ITaskListProps) {
 	};
 
 	const onUpdate = (taskId: string, updatedTask: string) => {
-		const now = new Date().toLocaleDateString();
+		const now = new Date().toLocaleString();
 		const temporaryLists = createDeepCopy(lists);
 
 		for (const temporaryList of temporaryLists) {
@@ -73,7 +73,7 @@ export default function TasksList({ list }: ITaskListProps) {
 	};
 
 	const onDelete = (taskId: string) => {
-		const now = new Date().toLocaleDateString();
+		const now = new Date().toLocaleString();
 		const temporaryLists = createDeepCopy(lists);
 
 		for (const temporaryList of temporaryLists) {
@@ -90,7 +90,7 @@ export default function TasksList({ list }: ITaskListProps) {
 	};
 
 	const onClearCompleted = () => {
-		const now = new Date().toLocaleDateString();
+		const now = new Date().toLocaleString();
 		const temporaryLists = createDeepCopy(lists);
 
 		for (const temporaryList of temporaryLists) {
